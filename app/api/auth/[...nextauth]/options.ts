@@ -23,6 +23,9 @@ export const authOptions: NextAuthOptions = {
               { username: credentials.username },
             ],
           });
+          console.log(credentials.email);
+          console.log(credentials.password);
+          console.log(user);
           if (!user) {
             throw new Error("User not found with this email");
           }
@@ -33,6 +36,7 @@ export const authOptions: NextAuthOptions = {
             credentials.password,
             user.password
           );
+          console.log(isPasswordCorrect)
           if (isPasswordCorrect) {
             return user;
           } else {

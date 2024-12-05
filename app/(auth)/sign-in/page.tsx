@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { SignInSchema } from "@/schemas/signInSchema"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
@@ -117,7 +117,7 @@ return (
            </div>
            <div className = "text-center mt-4">
                <p>
-                  New User !! <Link href = "/sign-up" className="text-blue-600 hover:text-blue-800 underline">SignUp</Link>
+                  New User !! <Link href = "/sign-up" className="text-blue-600 hover:text-blue-800 underline">SignIn</Link>
                </p>
            </div>
       </div>
