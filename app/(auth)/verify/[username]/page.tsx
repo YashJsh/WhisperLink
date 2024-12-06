@@ -24,7 +24,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const params = useParams();
   const username = params.username;
@@ -112,4 +112,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

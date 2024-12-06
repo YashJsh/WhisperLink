@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button";
 
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const name = params.username;
   const { toast } = useToast();
@@ -68,4 +68,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

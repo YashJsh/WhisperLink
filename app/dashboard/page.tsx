@@ -17,7 +17,7 @@ import { Switch } from "@/components/ui/switch";
 import MessageCard from "@/components/MessageCard";
 import { Bird, Loader2, RefreshCcw } from "lucide-react";
 import e from "cors";
-const page = () => {
+const Page = () => {
   const { data: session } = useSession();
   const user: User = session?.user as User;
   const [messages, setMessages] = useState<Message[]>([]);
@@ -272,4 +272,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
