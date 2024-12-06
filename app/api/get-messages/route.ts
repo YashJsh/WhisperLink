@@ -24,6 +24,7 @@ export async function GET(req : Request){
             { $sort : {'messages.createdAt' : -1}},
             { $group : {_id : '$id', messages :{$push : '$messages'}}} 
         ])
+        console.log(user);
         if (!user || user.length === 0) {
             return Response.json(
                 {
@@ -33,6 +34,7 @@ export async function GET(req : Request){
                 { status: 401 }
               );
         }
+        console.log(user[0].messages);
         return Response.json(
             {
               success: true,

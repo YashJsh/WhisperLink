@@ -15,9 +15,6 @@ export async function POST(request: Request) {
             }, { status: 404 });
         }
 
-        console.log("DB Stored Code:", user.verifyCode);
-        console.log("DB Code Expiry:", user.verifyCodeExpiry);
-        console.log("Received Code:", code);
 
         const isCodeValid = user.verifyCode === code;
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();

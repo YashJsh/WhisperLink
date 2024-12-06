@@ -41,19 +41,20 @@ const page = () => {
           toast({
             title : "Login failed", 
             description : "Incorrect username or password",
-            variant : "destructive"
+            variant : "destructive",
+            duration : 1000
         })
+        form.reset();
         } else{
           toast({
               title : "Logged In", 
-              description : "Welcome to Whisper Link"
+              description : "Welcome to Whisper Link",
+              duration : 1000
           })
           if (response?.url){
             router.replace('/dashboard')
           }
-          setIsSubmitting(false)
         }
-          
       }catch(error){
           console.error("Error in Signin for user")
           toast({
@@ -61,7 +62,9 @@ const page = () => {
               description : "Some error occured",
               variant : "destructive"
           })
-      }   
+      }  finally{
+            setIsSubmitting(false);
+      }
   }
 return (
   <div className="flex justify-center items-center min-h-screen bg-slate-50">
@@ -109,7 +112,7 @@ return (
                                       <Loader2 /> Please wait
                                   </>
                               )
-                              : ( "Signup")
+                              : ( "Sign In")
                           }
                       </Button>
                       </form>
@@ -117,7 +120,7 @@ return (
            </div>
            <div className = "text-center mt-4">
                <p>
-                  New User !! <Link href = "/sign-up" className="text-blue-600 hover:text-blue-800 underline">SignIn</Link>
+                  New User !! <Link href = "/sign-up" className="text-blue-600 hover:text-blue-800 underline">SignUp</Link>
                </p>
            </div>
       </div>

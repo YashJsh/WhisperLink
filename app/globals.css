@@ -68,3 +68,15 @@
 body {
   font-family: 'Manrope', sans-serif;
 }
+
+@keyframes slideLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px); /* Moves to the right */
+  }
+  100% {
+    transform: translateX(0); /* Moves back to the left */
+  }
+}

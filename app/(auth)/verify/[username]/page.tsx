@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useToast } from "@/hooks/use-toast";
 import { verifySchema } from "@/schemas/verifySchema";
@@ -7,31 +7,43 @@ import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import axios, { AxiosError } from "axios";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const page = () => {
   const router = useRouter();
   const params = useParams();
-  const username = params.username; 
+  const username = params.username;
 
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof verifySchema>>({
-  resolver: zodResolver(verifySchema),
-    });
+    resolver: zodResolver(verifySchema),
+  });
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
-      console.log("Username is :" +  username);
+      console.log("Username is :" + username);
       console.log(data.code);
       const response = await axios.post(`/api/verify-code`, {
         username: username,
         code: data.code,
       });
-      
+
       toast({
         title: "Success",
         description: response.data.message,
@@ -55,28 +67,47 @@ const page = () => {
             Enter the verification code sent to your email
           </p>
         </div>
-      
-      <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Verification Code</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter the Otp here" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button className = "w-full " type="submit">Verify</Button>
-        </form>
-      </Form>
+
+        <div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex flex-col justify-center items-center gap-2 text-gray-800">
+                      <FormLabel>Verification Code : </FormLabel>
+                      <FormControl>
+                        <InputOTP maxLength={6} {...field}>
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot index={2} />
+                            <InputOTPSlot index={3} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <Button className="w-full " type="submit">
+                Verify
+              </Button>
+            </form>
+          </Form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

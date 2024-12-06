@@ -20,12 +20,9 @@ export const authOptions: NextAuthOptions = {
           const user = await UserModel.findOne({
             $or: [
               { email: credentials.email },
-              { username: credentials.username },
+              { username: credentials.password},
             ],
           });
-          console.log(credentials.email);
-          console.log(credentials.password);
-          console.log(user);
           if (!user) {
             throw new Error("User not found with this email");
           }
@@ -50,8 +47,9 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+
         if (user) {
-            token.id = user._id;
+            token._id = user._id?.toString(); 
             token.username = user.username;
             token.isVerified = user.isVerified;
             token.isAcceptingMessages = user.isAcceptingMessages;
@@ -60,10 +58,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
         if  (token){
-            session.user._id = token._id;
-            session.user.username = token.username;
-            session.user.isVerified = token.isVerified;
-            session.user.isAcceptingMessages = token.isAcceptingMessages;
+          session.user._id = token._id;
+          session.user.username = token.username;
+          session.user.isVerified = token.isVerified;
+          session.user.isAcceptingMessages = token.isAcceptingMessages;
         }
         return session;
     }

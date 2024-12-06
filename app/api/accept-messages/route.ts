@@ -4,7 +4,7 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
@@ -15,15 +15,16 @@ export async function POST(req: Request) {
       { status: 401 }
     );
   }
-  const userId: any = user._id;
-  const { acceptMessage } = await req.json();
+
+  const userId = user._id;
+  const { acceptMessages } = await request.json();
 
   try {
-    const updatedUser = await UserModel.findOneAndUpdate(userId, {
-        isAcceptingMessage: acceptMessage,
-        }, {
-            new: true
-        }
+    // Update the user's message acceptance status
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { isAcceptingMessages: acceptMessages },
+      { new: true }
     );
     if(!updatedUser){
         return Response.json(
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
               success: false,
               message: "Failed to update user status to accept messages",
             },
-            { status: 401 }
+            { status: 404 }
         );
     }
     return Response.json(
@@ -54,13 +55,15 @@ export async function POST(req: Request) {
   }
 }
 
-
 export async function GET(req: Request){
     await dbConnect();
+
+    // Get the user session
     const session = await getServerSession(authOptions);
     const user: User = session?.user as User;
-  
-    if (!session || !session.user) {
+
+    // Check if the user is authenticated
+    if (!session || !user) {
       return Response.json(
         { success: false, message: "Not Authenticated" },
         { status: 401 }
@@ -81,7 +84,7 @@ export async function GET(req: Request){
         return Response.json(
             {
               success: true,
-              isAcceptingMessages : foundUser.isAcceptingMessage
+              isAcceptingMessages : foundUser.isAcceptingMessages
             },
             { status: 200 }
         );

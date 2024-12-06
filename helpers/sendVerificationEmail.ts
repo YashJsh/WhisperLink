@@ -6,9 +6,8 @@ export async function sendVerificationEmail(
     email: string,
     username: string,
     verifyCode : string
-):Promise<ApiResponse>{
+): Promise<ApiResponse>{
     try{
-        console.log("Sending mail part");
         await resend.emails.send({
             from: 'Wishper Link <onboarding@resend.dev>',
             to: email,

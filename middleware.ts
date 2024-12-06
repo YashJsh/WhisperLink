@@ -15,6 +15,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  if (request.nextUrl.pathname.startsWith("/dashboard") && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   // If the user is unauthenticated and trying to access protected routes, redirect to sign-in
   const isProtectedPath = ["/dashboard", "/dashboard/:path*"].some((path) =>
     url.pathname.startsWith(path)
