@@ -14,7 +14,7 @@ import { SignInSchema } from "@/schemas/signInSchema"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 
-const page = () => {
+const Page = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast();
@@ -129,4 +129,4 @@ return (
 }
 
 
-export default page
+export default Page
