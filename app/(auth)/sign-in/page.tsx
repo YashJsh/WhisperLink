@@ -56,7 +56,7 @@ const Page = () => {
           }
         }
       }catch(error){
-          console.error("Error in Signin for user")
+          console.error("Error in Signin for user", error)
           toast({
               title : "Error",
               description : "Some error occured",

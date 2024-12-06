@@ -16,7 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import MessageCard from "@/components/MessageCard";
 import { Bird, Loader2, RefreshCcw } from "lucide-react";
-import e from "cors";
+
 const Page = () => {
   const { data: session } = useSession();
   const user: User = session?.user as User;
@@ -51,7 +51,7 @@ const Page = () => {
     } finally {
       setIsSwitchLoading(false);
     }
-  }, [setValue]);
+  }, [setValue, toast]);
 
   const fetchMessages = useCallback(
     async (refresh: boolean = false) => {
@@ -89,7 +89,7 @@ const Page = () => {
 
   const handleSwitchChange = async () => {
     try {
-      const response = await axios.post<ApiResponse>("/api/accept-messages", {
+      await axios.post<ApiResponse>("/api/accept-messages", {
         acceptMessages: !acceptMessages,
       });
       setValue("acceptMessages", !acceptMessages);
@@ -234,8 +234,8 @@ const Page = () => {
 
       <div className="w-full flex justify-center items-center">
         {messages.length > 0 ? (
-           <div className="sm:mx-7 md:mx-3 lg:mx-12 rounded max-w-8xl grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
-          {messages.map((message, index) => (
+           <div className="sm:mx-7 md:mx-3 lg:mx-12 rounded max-w-8xl grid grid-cols-2 md:grid-cols-4 mt-4 gap-4 mb-12  ">
+          {messages.map((message) => (
             <MessageCard
               key={message._id}
               message={message}
@@ -254,7 +254,7 @@ const Page = () => {
 
       </div>
 
-      <footer className="fixed bottom-0 w-full flex justify-center items-center gap-2 text-center py-4">
+      <footer className="fixed bottom-0 w-full flex justify-center items-center gap-2 text-center py-4  bg-transparent">
         <div className="flex items-center space-x-2 font-semibold">
           <span>Accept Messages: </span>
           <Switch

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         { status: 200 }
       );
   } catch (error) {
-    console.log("Failed to update user status to accept messages");
+    console.log("Failed to update user status to accept messages", error);
     return Response.json(
       {
         success: false,
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(req: Request){
+export async function GET(){
     await dbConnect();
 
     // Get the user session
@@ -89,7 +89,7 @@ export async function GET(req: Request){
             { status: 200 }
         );
     } catch (error) {
-        console.log("Failed to update user status to accept messages");
+        console.log("Failed to update user status to accept messages", error);
         return Response.json(
           {
             success: false,

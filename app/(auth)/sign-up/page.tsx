@@ -47,6 +47,7 @@ const Page = () => {
                 }
                 catch(err){
                     const axiosError = err as AxiosError<ApiResponse>;
+                    console.error(axiosError.message);
                     SetUserNameMessage(
                         "Error Checking Username"
                     )
@@ -69,7 +70,7 @@ const Page = () => {
             router.replace(`/verify/${username}`)
             setIsSubmitting(false)
         }catch(error){
-            console.error("Error in Signup for user")
+            console.error("Error in Signup for user", error)
             toast({
                 title : "Error",
                 description : "Some error occured",

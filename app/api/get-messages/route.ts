@@ -3,9 +3,9 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-export async function GET(req : Request){
+export async function GET(){
     await dbConnect();
     const session = await getServerSession(authOptions);
     const user: User = session?.user as User;
@@ -24,7 +24,7 @@ export async function GET(req : Request){
             { $sort : {'messages.createdAt' : -1}},
             { $group : {_id : '$id', messages :{$push : '$messages'}}} 
         ])
-        console.log(user);
+        
         if (!user || user.length === 0) {
             return Response.json(
                 {
@@ -34,7 +34,7 @@ export async function GET(req : Request){
                 { status: 401 }
               );
         }
-        console.log(user[0].messages);
+
         return Response.json(
             {
               success: true,
@@ -43,7 +43,7 @@ export async function GET(req : Request){
             { status: 200 }
           );
     } catch (error) {
-        console.log("Failed to update user status to accept messages");
+        console.log("Failed to update user status to accept messages", error);
         return Response.json(
           {
             success: false,
