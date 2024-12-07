@@ -64,9 +64,10 @@ const Page = () => {
         try{  
             const response = await axios.post<ApiResponse>("/api/sign-up", data);
             toast({
-                title : "Success", 
-                description : response.data.message
+                title : response.data.code, 
+                description : "Email won't come due to trial stages, Above is your OTP"
             })
+            console.log(response.data.code)
             router.replace(`/verify/${username}`)
             setIsSubmitting(false)
         }catch(error){

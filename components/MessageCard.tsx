@@ -49,7 +49,7 @@ const MessageCard = ({message, onMessageDelete} : MessageCardProps) => {
     }
   return (
   
-    <Card className="flex h-[40vh] relative bg-gray-100 overflow-x-scroll">
+    <Card className="flex h-[40vh] relative bg-gray-100 overflow-x-scroll shadow-xl">
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-lg ">{message.content}</CardTitle>

@@ -8,7 +8,7 @@ export async function sendVerificationEmail(
     verifyCode : string
 ): Promise<ApiResponse>{
     try{
-        await resend.emails.send({
+        const result = await resend.emails.send({
             from: 'Wishper Link <onboarding@resend.dev>',
             to: email,
             subject: 'Verification Code',
@@ -19,6 +19,5 @@ export async function sendVerificationEmail(
     catch(err){
         console.error("Error sending verification email");
         return { success : false, message : "Failed to send verification Email"}
-
     }
 }

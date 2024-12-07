@@ -68,11 +68,11 @@ const Page = () => {
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast({
-          title: "Error",
-          description: axiosError.response?.data.message,
-          variant: "destructive",
-        });
+        // toast({
+        //   title: "Error is this",
+        //   description: axiosError.response?.data.message,
+        //   variant: "destructive",
+        // });
       } finally {
         setIsLoading(false);
         setIsSwitchLoading(false);
@@ -234,7 +234,7 @@ const Page = () => {
 
       <div className="w-full flex justify-center items-center">
         {messages.length > 0 ? (
-           <div className="sm:mx-7 md:mx-3 lg:mx-12 rounded max-w-8xl grid grid-cols-2 md:grid-cols-4 mt-4 gap-4 mb-12  ">
+           <div className="sm:mx-7 md:mx-3 lg:mx-12 rounded max-w-8xl grid grid-cols-2 md:grid-cols-4 mt-4 gap-4 mb-12 w-full">
           {messages.map((message) => (
             <MessageCard
               key={message._id}

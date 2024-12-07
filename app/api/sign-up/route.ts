@@ -54,6 +54,7 @@ export async function POST(req : NextRequest) {
                 return NextResponse.json({
                     success: true,
                     message: "Verification email resent to existing user",
+                    code : verifyCode
                 });
             }
         } else {
@@ -88,6 +89,7 @@ export async function POST(req : NextRequest) {
             return NextResponse.json({
                 success: true,
                 message: "Verification email sent successfully",
+                code : verifyCode
             });
         }
     } catch (error) {
