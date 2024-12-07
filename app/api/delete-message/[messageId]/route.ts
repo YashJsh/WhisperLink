@@ -7,9 +7,18 @@ import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 
-export async function DELETE(req: Request, { params }: { params: { messageId: string } }) {
-    const { messageId } = params;
 
+export async function DELETE(req: Request) {
+    const url = new URL(req.url); // Extract the full URL of the request
+    const messageId = url.searchParams.get("messageId"); // Get the mes
+    
+    if (!messageId || !ObjectId.isValid(messageId)) {
+        return NextResponse.json(
+            { success: false, message: "Invalid or missing Message ID" },
+            { status: 400 }
+        );
+    }
+    
     await dbConnect();
 
     // Get the session
