@@ -195,7 +195,7 @@ const Page = () => {
           </label>
           <input
             id="profileUrl"
-            className="w-full text-lg ml-1 rounded-lg shadow-lg px-4 py-1   "
+            className="min-w-fit text-lg ml-1 rounded-lg shadow-lg px-4 py-1   "
             type="text"
             value={profileUrl}
             disabled
