@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="w-full h-screen overflow-hidden flex flex-col">
       <div className="flex justify-between items-center px-4 md:px-8 py-4">
-        <div className="flex justify-between items-center w-fit md:w-1/6 bg-gray-100 rounded-xl h-auto shadow-xl cursor-default text-gray-900 px-4">
+        <div className="flex justify-between items-center w-fit bg-gray-100 rounded-xl h-auto shadow-xl cursor-default text-gray-900 px-4 py-2">
           <h2 className="text-lg md:text-2xl lg:text-2xl font-semibold tracking-tighter ">
             Whisper Link
           </h2>
