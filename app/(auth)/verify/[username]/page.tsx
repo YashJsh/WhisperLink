@@ -51,7 +51,7 @@ const Page = () => {
       console.error("Error in signup of User", error);
       toast({
         title: "Signup failed",
-        description: "Request failed",
+        description: "Username not found in databse, Use the username correctly",
         variant: "destructive",
       });
     }

@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const url = request.nextUrl;
 
-  const isAuthPath = ["/sign-up", "/sign-in", "/verify"].some((path) =>
+  const isAuthPath = ["/sign-up", "/sign-in", "/verify-code"].some((path) =>
     url.pathname.startsWith(path)
   );
 
@@ -33,5 +33,5 @@ export async function middleware(request: NextRequest) {
 
 // Apply middleware to the specified routes
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/verify", "/dashboard/:path*"],
+  matcher: ["/sign-in", "/sign-up", "/verify-code", "/dashboard/:path*"],
 };

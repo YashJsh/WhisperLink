@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
             credentials.password,
             user.password
           );
-          console.log(isPasswordCorrect)
           if (isPasswordCorrect) {
             return user;
           } else {
