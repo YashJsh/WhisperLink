@@ -48,37 +48,37 @@ const MessageCard = ({message, onMessageDelete} : MessageCardProps) => {
       }
     }
   return (
-  
-    <Card className="flex h-[40vh] relative bg-gray-100 overflow-x-scroll shadow-xl">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle className="text-lg ">{message.content}</CardTitle>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="ghost" className="absolute bottom-0 right-0 mb-3">
-                <X className="w-5 h-5" />
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete this message.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteConfirm}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>
-      </CardHeader>
-      <CardContent></CardContent>
-    </Card>
-
+    <Card className="flex flex-col h-[40vh] bg-gray-100 shadow-xl overflow-hidden relative">
+    <CardHeader>
+      <div className="flex justify-between items-center">
+        <CardTitle className="text-lg truncate w-4/5">Anonymous</CardTitle>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" className="absolute bottom-0 right-0 mb-3">
+              <X className="w-5 h-5" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete this message.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteConfirm}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+    </CardHeader>
+    <CardContent className="flex-grow overflow-y-auto px-4 py-2">
+      {message.content}
+    </CardContent>
+  </Card>
 );
 }
 export default MessageCard;

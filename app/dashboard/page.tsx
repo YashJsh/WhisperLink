@@ -148,10 +148,10 @@ const Page = () => {
     });
   };
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen ">
       <div className="pt-4 flex justify-center items-center relative">
-        <div className="fixed flex w-1/6 bg-gray-100 justify-around rounded-xl h-10 items-center shadow-xl cursor-pointer text-gray-900 text-sm mt-8">
-          <Button className="underline" onClick={homeClick}>
+        <div className="fixed flex justify-around items-center bg-gray-100 rounded-xl h-12 px-4 md:px-8 shadow-xl cursor-pointer text-gray-900 text-xs font-medium md:text-sm lg:text-base mt-8 space-x-4 min-w-auto lg:w-1/3">
+          <Button className="hover:text-gray-700" onClick={homeClick}>
             <h1>Home</h1>
           </Button>
           <Button
@@ -162,97 +162,101 @@ const Page = () => {
             About
           </Button>
           <Button
+            className="hover:text-gray-700 text-red-500"
             onClick={() => {
               signOut();
             }}
           >
-            Sign Out
+            SignOut
           </Button>
         </div>
       </div>
-      <div className="mt-[8vh] flex text-6xl font-bold justify-center text-center tracking-tighter">
-        <h1>
+      <div className="mt-[8vh] flex flex-col text-center font-bold tracking-tighter">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl">
           {session ? (
             <>
               <div>
-                <h1>Welcome back</h1>
+                <h1 className="font-bold">Welcome back</h1>
               </div>
-              <span className="text-gray-600">
+              <span className="block text-gray-400 text-xl md:text-3xl lg:text-4xl mt-2">
                 {user.username || user.email}
               </span>
             </>
           ) : (
             <Link href="/sign-in">
-              <Button>Sign in</Button>
+              <Button className="text-lg md:text-2xl lg:text-3xl px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white rounded-lg transition-all duration-200">
+                Sign in
+              </Button>
             </Link>
           )}
         </h1>
       </div>
-      <div className="w-full flex justify-center items-center">
-        <div className=" w-1/5 mt-8 flex justify-center items-center gap-2 rounded-xl py-3  text-center ">
-          <label htmlFor="profileUrl" className="sr-only">
-            Profile URL
-          </label>
-          <input
-            id="profileUrl"
-            className="min-w-fit text-lg ml-1 rounded-lg shadow-lg px-4 py-1   "
-            type="text"
-            value={profileUrl}
-            disabled
-          />
-          <div className="">
-            <button
-              onClick={copyToClipboard}
-              className="bg-black text-white px-4 py-1 rounded-xl shadow-lg  pointer"
-            >
-              Copy
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="w-full flex-grow flex flex-col items-center justify-center mt-8 mb-4">
-        <Button
-          className="mt-4"
-          onClick={(e) => {
-            e.preventDefault();
-            fetchMessages(true);
-          }}
-        >
-          {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <RefreshCcw className="h-4 w-4" />
-          )}
-        </Button>
-      </div>
+      <div className="w-full flex flex-col items-center">
+  {/* Profile URL Section */}
+  <div className="w-full sm:w-1/5 md:w-1/3 lg:w-1/3 mt-8 flex justify-center items-center gap-2 rounded-xl py-3 text-center px-4">
+    <label htmlFor="profileUrl" className="sr-only">
+      Profile URL
+    </label>
+    <input
+      id="profileUrl"
+      className="flex-grow text-base md:text-lg rounded-lg shadow-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      type="text"
+      value={profileUrl}
+      disabled
+    />
+    <button
+      onClick={copyToClipboard}
+      className="bg-black text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-800 transition-all duration-200"
+    >
+      Copy
+    </button>
+  </div>
 
-      <div className="w-full flex justify-center items-center">
-        <div className=" w-1/5 mt-8 flex justify-center items-center gap-2 rounded-xl py-3  text-center ">
-          <h1 className="text-2xl">Messages</h1>
-        </div>
-      </div>
+  {/* Fetch Messages Section */}
+  <div className="w-full flex-grow flex flex-col items-center justify-center mt-8 mb-4">
+    <Button
+      className="mt-1 flex justify-center items-center  px-4 py-2 rounded-lg shadow-lg transition-all duration-200"
+      onClick={(e) => {
+        e.preventDefault();
+        fetchMessages(true);
+      }}
+    >
+      {isLoading ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <RefreshCcw className="h-4 w-4" />
+      )}
+    </Button>
+  </div>
+</div>
+<div className="w-full flex justify-center items-center ">
+  <div className="w-full md:w-2/3 lg:w-1/3 flex justify-center items-center gap-2 rounded-xl py-3 px-4 text-center">
+    <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
+      Messages
+    </h1>
+  </div>
+</div>
 
-      <div className="w-full flex justify-center items-center">
-        {messages.length > 0 ? (
-           <div className="sm:mx-7 md:mx-3 lg:mx-12 rounded max-w-8xl grid grid-cols-2 md:grid-cols-4 mt-4 gap-4 mb-12 w-full">
-          {messages.map((message) => (
-            <MessageCard
-              key={message._id}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))}
-          </div>
-        ) : (
-        
-            <div className="flex flex-col mt-[10vh] h-[22vh] items-center justify-start w-full  ">
-              <Bird className="h-16 w-16 animate-bounce" />
-              <h1 className="text-2xl">You got no messages</h1>
-            </div>
-          
-        )}
-
-      </div>
+<div className="w-full flex justify-center items-center ">
+  {messages.length > 0 ? (
+    <div className="mx-4 md:mx-6 lg:mx-12 rounded-lg max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-6 gap-6 mb-12 w-full">
+      {messages.map((message) => (
+        <MessageCard
+          key={message._id}
+          message={message}
+          onMessageDelete={handleDeleteMessage}
+        />
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-col mt-16 md:mt-[10vh] h-auto items-center justify-start w-full text-center">
+      <Bird className="h-12 w-12 md:h-16 md:w-16 animate-bounce text-gray-600" />
+      <h1 className="text-lg md:text-2xl text-gray-800 font-semibold mt-4">
+        You got no messages
+      </h1>
+    </div>
+  )}
+</div>
 
       <footer className="fixed bottom-0 w-full flex justify-center items-center gap-2 text-center py-4  bg-transparent">
         <div className="flex items-center space-x-2 font-semibold">
