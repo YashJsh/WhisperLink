@@ -17,12 +17,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
         try {
-          const user = await UserModel.findOne({
-            $or: [
-              { email: credentials.email },
-              { username: credentials.password},
-            ],
-          });
+          const user = await UserModel.findOne({ email: credentials.email });
           if (!user) {
             throw new Error("User not found with this email");
           }
@@ -46,7 +41,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-
         if (user) {
             token._id = user._id?.toString(); 
             token.username = user.username;

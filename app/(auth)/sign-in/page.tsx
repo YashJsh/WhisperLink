@@ -33,7 +33,7 @@ const Page = () => {
       setIsSubmitting(true);
       try{
         const response = await signIn('credentials',{
-          redirect : false,
+          redirect : false, 
           email: data.email,
           password: data.password
         })
